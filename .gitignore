@@ -1,0 +1,47 @@
+# Environment
+.env
+.env.*
+!.env.example
+
+# Python
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.venv/
+venv/
+
+# Node or frontend tools
+node_modules/
+dist/
+build/
+
+# IDE and OS
+.idea/
+.vscode/
+*.swp
+Thumbs.db
+.DS_Store
+
+# Logs and local data
+*.log
+logs/
+*.sqlite
+*.db
+
+# Media captures and temporary demos
+captures/
+recordings/
+tmp/
+temp/
+
+# Downloaded model asset; keep local unless explicitly reviewed.
+hand_gesture_controller/models/hand_landmarker.task
+
+# Archives kept out of commits unless reviewed
+_archive/
+
+# Istruzioni interne per assistenti: restano locali
+CLAUDE.md
+AGENTS.md

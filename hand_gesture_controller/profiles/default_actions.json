@@ -1,0 +1,56 @@
+{
+  "version": 1,
+  "bindings": [
+    {
+      "name": "two_fists_copy",
+      "enabled": true,
+      "gesture": "two_fists",
+      "hands": ["Left", "Right"],
+      "hold_seconds": 0.5,
+      "cooldown_seconds": 1.0,
+      "priority": 100,
+      "action": { "type": "hotkey", "keys": ["ctrl", "c"] }
+    },
+    {
+      "name": "two_v_paste",
+      "enabled": true,
+      "gesture": "two_v_signs",
+      "hands": ["Left", "Right"],
+      "hold_seconds": 0.5,
+      "cooldown_seconds": 1.0,
+      "priority": 100,
+      "action": { "type": "hotkey", "keys": ["ctrl", "v"] }
+    },
+    {
+      "name": "left_v_paste",
+      "enabled": true,
+      "gesture": "v_sign",
+      "hands": ["Left"],
+      "hold_seconds": 0.45,
+      "cooldown_seconds": 1.0,
+      "priority": 60,
+      "action": { "type": "hotkey", "keys": ["ctrl", "v"] }
+    },
+    {
+      "name": "left_thumbs_up_copy",
+      "enabled": true,
+      "gesture": "thumbs_up",
+      "hands": ["Left"],
+      "hold_seconds": 0.45,
+      "cooldown_seconds": 1.0,
+      "priority": 60,
+      "action": { "type": "hotkey", "keys": ["ctrl", "c"] }
+    },
+    {
+      "name": "left_fist_toggle_mouse",
+      "enabled": true,
+      "gesture": "fist",
+      "hands": ["Left"],
+      "hold_seconds": 0.8,
+      "cooldown_seconds": 1.0,
+      "priority": 40,
+      "action": { "type": "toggle_mouse" }
+    }
+  ]
+}
+
