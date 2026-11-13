@@ -12,10 +12,12 @@ Il progetto permette interazioni hands-free con il desktop: puntatore, click, se
 - Input webcam con fallback automatico degli indici camera.
 - Controllo puntatore, click e gesture configurabili.
 - Profili azione e profili gesture in JSON.
-- Controlli video per player/browser: play/pausa e seek con pugno destro.
+- Controlli video per player/browser: play/pausa e seek con pugno destro,
+  via sessione media di Windows con fallback sui tasti.
+- Impostazioni su file JSON, con precedenza default, file, riga di comando.
 - Overlay desktop opzionale.
 - Supporto OBS Virtual Camera via `pyvirtualcam`.
-- Test unitari per gesture, camera, mouse, media gestures e virtual camera.
+- 51 test unitari, eseguibili senza webcam ne' hardware.
 
 ## Tech stack
 
@@ -52,24 +54,28 @@ python -m hand_gesture_controller.main --virtual-camera-backend obs
 ## Test
 
 ```powershell
-python -m unittest discover tests
+python -m pip install -r .equirements-dev.txt
+python -m pytest tests
 ```
+
+## Documentazione
+
+- [Installazione](docs/INSTALLATION.md)
+- [Guida utente](docs/USER_GUIDE.md): gesture, tasti e comandi video
+- [Configurazione](docs/CONFIGURATION.md): impostazioni JSON e profili
+- [Troubleshooting](docs/TROUBLESHOOTING.md)
+- [Sviluppo](docs/DEVELOPMENT.md)
+- [Architettura](docs/ARCHITECTURE.md), [decisioni](docs/DECISIONS.md), [roadmap](docs/ROADMAP.md)
 
 ## Screenshot/demo
 
-Placeholder:
-
-- aggiungere screenshot UI o GIF demo;
-- aggiungere breve video dimostrativo se disponibile;
-- verificare che non compaiano dati personali nello schermo registrato.
+Da aggiungere: una GIF che mostri puntatore e comandi video. Verificare che
+nella registrazione non compaiano dati personali.
 
 ## Roadmap
 
-- Verificare il run completo dal nuovo percorso portfolio.
-- Preparare una demo breve per CV/portfolio.
+- Aggiungere una GIF demo delle gesture.
 - Valutare packaging o script di avvio.
-- Documentare meglio tutte le gesture supportate.
-- Valutare repository pubblico dopo revisione.
 
 ## Privacy e sicurezza
 
@@ -77,3 +83,7 @@ Placeholder:
 - Non committare log, catture schermo o video demo non revisionati.
 - Non committare il modello scaricato senza decisione esplicita.
 - Documentare chiaramente l'uso della webcam.
+
+## Licenza
+
+MIT, vedere [LICENSE](LICENSE).

@@ -22,7 +22,7 @@ drag/selezione, copia e incolla con gesture della mano.
 
 ## Setup
 
-Da `C:\Dev\portfolio\GestureTracker`:
+Dalla cartella del progetto:
 
 ```powershell
 python -m venv .venv
@@ -304,17 +304,31 @@ parentesi quadre, per esempio `[custom_copy]`.
 
 ```text
 hand_gesture_controller/
-|-- main.py
-|-- config.py
-|-- camera.py
-|-- camera_manager.py
-|-- virtual_camera.py
-|-- hand_tracker.py
-|-- gesture_detector.py
-|-- mouse_controller.py
-|-- keyboard_controller.py
-|-- smoothing.py
-|-- state_machine.py
+|-- main.py                   # avvio, parsing argomenti, loop principale
+|-- config.py                 # dataclass di configurazione e default
+|-- settings_store.py         # impostazioni da settings.json
+|-- camera.py                 # apertura webcam e riprova
+|-- camera_manager.py         # indici di fallback
+|-- virtual_camera.py         # relay verso OBS Virtual Camera
+|-- hand_tracker.py           # MediaPipe hand landmarker
+|-- gesture_detector.py       # dita estese, pinch, pose discrete
+|-- pose_templates.py         # pose statiche registrate a runtime
+|-- smoothing.py              # smoothing esponenziale
+|-- pointer_stabilizer.py     # blocco puntatore durante i click
+|-- binding_engine.py         # gesture -> evento azione
+|-- action_profile.py         # profili azione da JSON
+|-- action_runner.py          # esecuzione delle azioni
+|-- state_machine.py          # pausa, mouse mode
+|-- mouse_controller.py       # movimento e click reali
+|-- right_hand_mouse.py       # logica mouse della mano destra
+|-- physical_mouse_guard.py   # priorita' sull'air mouse
+|-- keyboard_controller.py    # tasti e scorciatoie
+|-- media_control.py          # sessione media Windows + fallback tasti
+|-- media_gestures.py         # gesture del pugno per i media
+|-- screen_context.py         # riconoscimento contesto media
+|-- desktop_overlay.py        # HUD click-through opzionale
+|-- download_model.py         # scarica hand_landmarker.task
+|-- profiles/                 # azioni e gesture personalizzate
 |-- requirements.txt
 `-- README.md
 ```
@@ -324,8 +338,10 @@ il pugno o la gesture di incolla risultano troppo sensibili.
 
 ## Gesture media player
 
-Quando la finestra in primo piano sembra un player video, le gesture con il
-pugno destro prendono priorita' rispetto ai binding normali:
+Quando l'app rileva un contesto media, le gesture con il pugno destro
+prendono priorita' rispetto ai binding normali. Il contesto e' una finestra in
+primo piano che sembra un player, oppure una sessione media di Windows attiva:
+in questo secondo caso i comandi funzionano anche con il player in background.
 
 | Gesture | Azione |
 | --- | --- |
@@ -336,13 +352,21 @@ pugno destro prendono priorita' rispetto ai binding normali:
 Funziona con player desktop riconosciuti dal processo, per esempio VLC/mpv, e
 con browser quando il titolo della scheda contiene parole video come YouTube,
 Netflix, Twitch, Vimeo, Prime Video, player, video, watch o stream.
-Su YouTube l'app usa le scorciatoie native `J/K/L`; sugli altri player usa
-`Freccia sinistra`, `Spazio`, `Freccia destra`.
+I comandi passano prima dalla sessione media di Windows (Windows Media
+Transport Controls via WinRT): play/pausa agisce sul player reale e il seek
+sposta la riproduzione di `native_seek_seconds` secondi, 10 per default, anche
+se la finestra non e' in primo piano.
+
+Se il player non espone una sessione media, l'app ricade sui tasti: su YouTube
+usa le scorciatoie `J/K/L`, altrove `Freccia sinistra`, `Spazio`,
+`Freccia destra`. La riga `action` della finestra di debug dice quale strada e'
+stata usata, `native seek forward` oppure `key seek forward`.
 
 Comandi utili:
 
 ```powershell
 python -m hand_gesture_controller.main --no-media-gestures
+python -m hand_gesture_controller.main --no-native-media
 python -m hand_gesture_controller.main --media-swipe-threshold 0.18
 python -m hand_gesture_controller.main --media-pause-hold 0.65
 python -m hand_gesture_controller.main --media-seek-repeat 0.30

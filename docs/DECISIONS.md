@@ -28,3 +28,30 @@
 - Prima dell'eliminazione, la vecchia repository pubblica e' stata salvata come mirror Git
   in `_archive/hand-gesture-desktop-controller.git` (ignorato da Git): la fase 3 recupera
   i file da li', non da GitHub.
+
+## 2026-11-14 (fase 3)
+
+- Recuperato `media_control.py` dal mirror: i comandi media passano dalla sessione
+  media di Windows (WinRT) e ricadono sui tasti solo se non risponde. Prima l'app
+  mandava solo tasti, quindi richiedeva il player in primo piano.
+- `MediaGestureController` riceve ora un `HybridMediaController` invece della tastiera:
+  la scelta nativo/tasti sta in un posto solo. `MediaGestureUpdate.action` porta
+  l'etichetta della strada usata, utile nella finestra di debug.
+- Reintrodotta la configurazione su file con `settings_store.py`. I default del parser
+  argomenti arrivano dal file caricato, non da `DEFAULT_CONFIG`: cosi' la precedenza e'
+  default del codice, file, riga di comando. Senza questo accorgimento gli argomenti,
+  che hanno sempre un valore, avrebbero sovrascritto il file a ogni avvio.
+- `settings.example.json` viene generato dal codice con
+  `python -m hand_gesture_controller.settings_store`, non scritto a mano: non puo'
+  divergere dalle dataclass.
+- `SettingsStore.load` non crea il file al primo avvio, al contrario della versione
+  vecchia: l'esempio si copia a mano quando serve.
+- Non sono stati recuperati `tray_app.py`, `hotkeys.py`, `runtime_state.py` e
+  `debug_settings_panel.py`: la versione attuale non ha tray ne' scorciatoie globali,
+  e il pannello richiede `runtime_state`. Restano nel mirror.
+- I 6 documenti del mirror sono stati riscritti sul codice attuale invece di essere
+  copiati: descrivevano tray, scorciatoie globali e pannello impostazioni che qui non
+  esistono. `PORTFOLIO_SUMMARY.md` non e' stato ripreso, perche' README e
+  PROJECT_BRIEF coprono gia' quel contenuto.
+- Aggiunto `requirements-dev.txt` con pytest, e i pacchetti `winrt-*` ai requirements:
+  senza di essi i comandi media funzionano, ma solo via tasti.

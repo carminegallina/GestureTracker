@@ -7,10 +7,10 @@
 - [x] Eseguire test dal nuovo percorso portfolio.
 - [ ] Verificare run `--dry-run` dal nuovo percorso portfolio.
 - [ ] Aggiungere screenshot o GIF demo.
-- [ ] Aggiornare architettura in base al codice reale.
+- [x] Aggiornata la struttura dei moduli nel README del package.
 - [x] Rimuovere path personali dai documenti prima della pubblicazione.
 - [x] Aggiungere LICENSE prima di rendere pubblico il repository.
 - [x] Esclusi CLAUDE.md e AGENTS.md dal repository pubblico.
-- [ ] Recuperare `media_control.py` (seek nativo WinRT) dal mirror in `_archive/`.
-- [ ] Recuperare `settings_store.py` e i 6 documenti `docs/` dal mirror in `_archive/`.
-- [ ] Allineare `requirements.txt` (pystray, winrt-*, pytest).
+- [x] Recuperato `media_control.py` (seek nativo WinRT) dal mirror.
+- [x] Recuperati `settings_store.py` e i documenti `docs/`, riscritti sul codice attuale.
+- [x] Allineati `requirements.txt` e `requirements-dev.txt`.
