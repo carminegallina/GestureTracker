@@ -3,3 +3,8 @@ opencv-python>=4.9.0
 pyautogui>=0.9.54
 numpy>=1.26
 pyvirtualcam>=0.15.0
+
+# Sessione media di Windows: senza questi i comandi video usano solo i tasti
+winrt-runtime>=3.2.1
+winrt-Windows.Foundation>=3.2.1
+winrt-Windows.Media.Control>=3.2.1

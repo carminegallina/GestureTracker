@@ -1,0 +1,121 @@
+{
+  "camera": {
+    "auto_fallback": true,
+    "backend": 700,
+    "fallback_indices": [
+      0,
+      1,
+      2,
+      3,
+      4
+    ],
+    "height": 720,
+    "index": 0,
+    "mirror": true,
+    "probe_frame_attempts": 3,
+    "release_on_pause": true,
+    "retry_interval_seconds": 2.0,
+    "width": 1280
+  },
+  "gesture": {
+    "click_freeze_seconds": 0.12,
+    "click_max_seconds": 0.25,
+    "command_cooldown_seconds": 1.0,
+    "copy_hold_seconds": 0.5,
+    "double_click_seconds": 0.32,
+    "drag_hold_seconds": 0.18,
+    "finger_extension_margin": 0.015,
+    "finger_tap_min_seconds": 0.04,
+    "paste_hold_seconds": 0.45,
+    "pinch_threshold": 0.35,
+    "right_click_hold_seconds": 0.08
+  },
+  "media_gesture": {
+    "action_cooldown_seconds": 0.75,
+    "browser_processes": [
+      "chrome.exe",
+      "msedge.exe",
+      "firefox.exe",
+      "brave.exe",
+      "opera.exe",
+      "vivaldi.exe"
+    ],
+    "browser_title_keywords": [
+      "youtube",
+      "netflix",
+      "prime video",
+      "disney+",
+      "twitch",
+      "vimeo",
+      "dailymotion",
+      "raiplay",
+      "mediaset infinity",
+      "now tv",
+      "plex",
+      "player",
+      "video",
+      "watch",
+      "stream"
+    ],
+    "enabled": true,
+    "hand": "Right",
+    "lost_fist_grace_seconds": 0.2,
+    "native_seek_seconds": 10.0,
+    "pause_hold_seconds": 0.55,
+    "play_pause_key": "space",
+    "player_processes": [
+      "vlc.exe",
+      "mpv.exe",
+      "wmplayer.exe",
+      "potplayermini.exe",
+      "potplayermini64.exe",
+      "movies.exe",
+      "video.ui.exe",
+      "quicktimeplayer.exe"
+    ],
+    "prefer_native_media_context": true,
+    "seek_backward_key": "left",
+    "seek_forward_key": "right",
+    "seek_repeat_seconds": 0.35,
+    "still_threshold": 0.055,
+    "swipe_max_seconds": 1.1,
+    "swipe_threshold": 0.16,
+    "use_native_media_controls": true,
+    "window_check_interval_seconds": 0.35
+  },
+  "pointer": {
+    "active_zone_bottom": 0.9,
+    "active_zone_left": 0.18,
+    "active_zone_right": 0.82,
+    "active_zone_top": 0.24,
+    "dead_zone_px": 7.0,
+    "sensitivity": 1.0,
+    "smoothing_alpha": 0.16
+  },
+  "runtime": {
+    "debug_enabled": true,
+    "debug_window_name": "GestureTracker",
+    "dry_run": false,
+    "paused_at_start": false
+  },
+  "tracker": {
+    "flip_handedness": true,
+    "hand_match_max_distance": 0.35,
+    "lost_hand_grace_seconds": 0.35,
+    "max_num_hands": 2,
+    "min_detection_confidence": 0.55,
+    "min_tracking_confidence": 0.5,
+    "model_path": null
+  },
+  "virtual_camera": {
+    "backend": null,
+    "device": null,
+    "enabled": true,
+    "fps": 30.0,
+    "height": null,
+    "mirror": false,
+    "print_fps": false,
+    "retry_interval_seconds": 3.0,
+    "width": null
+  }
+}

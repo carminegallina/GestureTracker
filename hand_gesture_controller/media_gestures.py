@@ -5,7 +5,7 @@ from dataclasses import dataclass
 from .binding_engine import HandObservation
 from .config import MediaGestureConfig
 from .gesture_detector import Gesture
-from .keyboard_controller import KeyboardController
+from .media_control import HybridMediaController
 from .models import LandmarkPoint
 from .screen_context import ScreenContext
 
@@ -35,10 +35,10 @@ class MediaGestureController:
     def __init__(
         self,
         config: MediaGestureConfig,
-        keyboard: KeyboardController,
+        media: HybridMediaController,
     ) -> None:
         self.config = config
-        self.keyboard = keyboard
+        self.media = media
         self._session: _FistSession | None = None
         self._last_action_at = -999.0
 
@@ -175,13 +175,11 @@ class MediaGestureController:
         context: ScreenContext,
         now: float,
     ) -> MediaGestureUpdate:
-        key = (
-            self.config.seek_forward_key
+        label = (
+            self.media.seek_forward(context)
             if action == "seek forward"
-            else self.config.seek_backward_key
+            else self.media.seek_backward(context)
         )
-        key = _media_key(action, key, context)
-        self.keyboard.press(key)
         if self._session:
             self._session.last_fired_at = now
         self._last_action_at = now
@@ -189,7 +187,7 @@ class MediaGestureController:
             active=True,
             has_fist=True,
             consumed=True,
-            action=action,
+            action=label,
             status=action,
             context_label=_context_label(context),
         )
@@ -199,9 +197,7 @@ class MediaGestureController:
         context: ScreenContext,
         now: float,
     ) -> MediaGestureUpdate:
-        action = "play/pause"
-        key = _media_key(action, self.config.play_pause_key, context)
-        self.keyboard.press(key)
+        label = self.media.play_pause(context)
         if self._session:
             self._session.pause_fired = True
             self._session.last_fired_at = now
@@ -210,7 +206,7 @@ class MediaGestureController:
             active=True,
             has_fist=True,
             consumed=True,
-            action=action,
+            action=label,
             status="release fist",
             context_label=_context_label(context),
         )
@@ -237,16 +233,3 @@ def _context_label(context: ScreenContext) -> str:
         return f"{context.process_name}: {title}"
     return context.process_name
 
-
-def _media_key(action: str, default_key: str, context: ScreenContext) -> str:
-    title = context.title.lower()
-    reason = context.reason.lower()
-    if "youtube" not in title and "youtube" not in reason:
-        return default_key
-
-    youtube_keys = {
-        "play/pause": "k",
-        "seek backward": "j",
-        "seek forward": "l",
-    }
-    return youtube_keys.get(action, default_key)

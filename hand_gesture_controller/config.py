@@ -1,4 +1,7 @@
-from dataclasses import dataclass
+from dataclasses import asdict, dataclass, fields
+from typing import Any, TypeVar
+
+T = TypeVar("T")
 
 
 @dataclass(frozen=True)
@@ -69,6 +72,9 @@ class GestureConfig:
 class MediaGestureConfig:
     enabled: bool = True
     hand: str = "Right"
+    use_native_media_controls: bool = True
+    prefer_native_media_context: bool = True
+    native_seek_seconds: float = 10.0
     window_check_interval_seconds: float = 0.35
     swipe_threshold: float = 0.16
     swipe_max_seconds: float = 1.10
@@ -137,3 +143,17 @@ class AppConfig:
 
 
 DEFAULT_CONFIG = AppConfig()
+
+
+def merge_dataclass(instance: T, values: dict[str, Any]) -> T:
+    """Applica a `instance` solo i campi noti, convertendo le liste in tuple."""
+    allowed = {field.name for field in fields(instance)}
+    clean = {}
+    for key, value in values.items():
+        if key not in allowed:
+            continue
+        current = getattr(instance, key)
+        if isinstance(current, tuple) and isinstance(value, list):
+            value = tuple(value)
+        clean[key] = value
+    return type(instance)(**{**asdict(instance), **clean})

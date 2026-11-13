@@ -1,0 +1,3 @@
+-r hand_gesture_controller/requirements.txt
+
+pytest>=8.0

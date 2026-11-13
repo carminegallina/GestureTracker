@@ -36,6 +36,9 @@ recordings/
 tmp/
 temp/
 
+# Impostazioni locali: nel repository resta solo settings.example.json
+hand_gesture_controller/settings.json
+
 # Downloaded model asset; keep local unless explicitly reviewed.
 hand_gesture_controller/models/hand_landmarker.task
 
