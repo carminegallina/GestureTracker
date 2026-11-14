@@ -9,6 +9,10 @@ python -m pytest tests
 I test non usano webcam, mouse o tastiera reali: le dipendenze di sistema sono
 sostituite da fake nei test stessi. Girano quindi anche senza hardware.
 
+La GitHub Action in `.github/workflows/tests.yml` li esegue a ogni push su
+`main` e su ogni pull request. Gira su `windows-latest`: i pacchetti `winrt-*`
+esistono solo per Windows, quindi su Linux l'installazione fallirebbe.
+
 ## Separazione dei moduli
 
 Tre livelli tenuti distinti, come chiede il progetto:

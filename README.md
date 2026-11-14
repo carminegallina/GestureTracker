@@ -1,5 +1,7 @@
 # GestureTracker
 
+[![tests](https://github.com/carminegallina/GestureTracker/actions/workflows/tests.yml/badge.svg)](https://github.com/carminegallina/GestureTracker/actions/workflows/tests.yml)
+
 Tool desktop Python per controllare il PC con gesture della mano via webcam.
 
 ## Problema risolto
@@ -54,7 +56,8 @@ python -m hand_gesture_controller.main --virtual-camera-backend obs
 ## Test
 
 ```powershell
-python -m pip install -r .equirements-dev.txt
+python -m pip install -r .
+equirements-dev.txt
 python -m pytest tests
 ```
 

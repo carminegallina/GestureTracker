@@ -14,3 +14,4 @@
 - [x] Recuperato `media_control.py` (seek nativo WinRT) dal mirror.
 - [x] Recuperati `settings_store.py` e i documenti `docs/`, riscritti sul codice attuale.
 - [x] Allineati `requirements.txt` e `requirements-dev.txt`.
+- [x] Aggiunta la CI che esegue i test a ogni push.
