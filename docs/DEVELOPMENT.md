@@ -13,6 +13,17 @@ La GitHub Action in `.github/workflows/tests.yml` li esegue a ogni push su
 `main` e su ogni pull request. Gira su `windows-latest`: i pacchetti `winrt-*`
 esistono solo per Windows, quindi su Linux l'installazione fallirebbe.
 
+## Pacchetto e comando
+
+`pyproject.toml` dichiara il package e l'entry point `gesturetracker`, che punta
+a `hand_gesture_controller.main:main`. Le dipendenze non sono elencate la': il
+campo e' dinamico e legge `hand_gesture_controller/requirements.txt`, cosi' non
+vanno tenute allineate in due posti.
+
+I path dei file di dati, profili, impostazioni e modello, si risolvono tutti
+rispetto alla cartella del package e non a quella di lavoro: altrimenti il
+comando installato, avviato da altrove, non li troverebbe.
+
 ## Separazione dei moduli
 
 Tre livelli tenuti distinti, come chiede il progetto:

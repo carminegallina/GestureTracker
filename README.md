@@ -37,7 +37,7 @@ Il progetto permette interazioni hands-free con il desktop: puntatore, click, se
 cd GestureTracker
 python -m venv .venv
 .\.venv\Scripts\Activate.ps1
-python -m pip install -r .\hand_gesture_controller\requirements.txt
+python -m pip install -e .
 python -m hand_gesture_controller.download_model
 ```
 
@@ -46,18 +46,20 @@ Il modello `hand_gesture_controller\models\hand_landmarker.task` puo' restare lo
 ## Esecuzione
 
 ```powershell
-python -m hand_gesture_controller.main --dry-run
-python -m hand_gesture_controller.main
-python -m hand_gesture_controller.main --overlay
-python -m hand_gesture_controller.main --no-virtual-camera
-python -m hand_gesture_controller.main --virtual-camera-backend obs
+gesturetracker --dry-run
+gesturetracker
+gesturetracker --overlay
+gesturetracker --no-virtual-camera
+gesturetracker --virtual-camera-backend obs
 ```
+
+Il comando funziona da qualunque cartella. Senza installare il pacchetto resta
+valido `python -m hand_gesture_controller.main`, con gli stessi argomenti.
 
 ## Test
 
 ```powershell
-python -m pip install -r .
-equirements-dev.txt
+python -m pip install -r requirements-dev.txt
 python -m pytest tests
 ```
 

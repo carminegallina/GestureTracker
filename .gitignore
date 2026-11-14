@@ -12,6 +12,10 @@ __pycache__/
 .venv/
 venv/
 
+# Artefatti di build e installazione
+*.egg-info/
+.eggs/
+
 # Node or frontend tools
 node_modules/
 dist/

@@ -58,5 +58,20 @@ class SettingsStoreTests(unittest.TestCase):
         self.assertEqual(store.load(), DEFAULT_CONFIG)
 
 
+class DefaultPathTests(unittest.TestCase):
+    def test_the_default_path_does_not_depend_on_the_working_directory(self) -> None:
+        """Avviata da un'altra cartella, l'app deve trovare lo stesso file."""
+        from hand_gesture_controller.settings_store import DEFAULT_SETTINGS_PATH
+
+        self.assertTrue(DEFAULT_SETTINGS_PATH.is_absolute())
+        self.assertEqual(DEFAULT_SETTINGS_PATH.name, "settings.json")
+        self.assertEqual(DEFAULT_SETTINGS_PATH.parent.name, "hand_gesture_controller")
+
+    def test_the_store_uses_that_path_by_default(self) -> None:
+        from hand_gesture_controller.settings_store import DEFAULT_SETTINGS_PATH
+
+        self.assertEqual(SettingsStore().path, DEFAULT_SETTINGS_PATH)
+
+
 if __name__ == "__main__":
     unittest.main()

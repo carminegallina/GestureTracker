@@ -12,5 +12,5 @@
 ## Da fare
 
 - [ ] GIF demo delle gesture nel README.
-- [ ] Valutare packaging o uno script di avvio, per non dover usare `python -m`.
+- [x] Packaging con entry point `gesturetracker`.
 - [ ] Valutare un pannello per regolare le soglie a runtime, senza riavviare.

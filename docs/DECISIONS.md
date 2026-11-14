@@ -76,3 +76,11 @@
   si chiude una finestra: il loop proseguiva e il successivo `imshow` la ricreava,
   percio' sembrava che l'app si riavviasse. Il loop controlla `WND_PROP_VISIBLE`,
   verificato su opencv 5.0: 1.0 con la finestra aperta, 0.0 dopo la chiusura.
+- Aggiunto `pyproject.toml` con l'entry point `gesturetracker`. Le dipendenze restano
+  nel requirements e vengono lette da `[tool.setuptools.dynamic]`, per non tenerle
+  allineate in due posti.
+- `DEFAULT_SETTINGS_PATH` era relativo alla cartella di lavoro, mentre profili e modello
+  erano gia' relativi al package. Avviando l'app da un'altra cartella il file delle
+  impostazioni non veniva trovato, in silenzio: ora segue la stessa regola degli altri.
+- Consigliata l'installazione modificabile (`pip install -e .`): l'app scrive i propri
+  profili dentro il package, che con un'installazione normale starebbe in site-packages.

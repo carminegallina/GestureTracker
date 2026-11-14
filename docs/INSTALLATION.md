@@ -17,8 +17,16 @@ Dalla cartella del progetto:
 ```powershell
 python -m venv .venv
 .\.venv\Scripts\Activate.ps1
-python -m pip install -r .\hand_gesture_controller\requirements.txt
+python -m pip install -e .
 ```
+
+L'installazione in modalita' modificabile (`-e`) e' quella consigliata: l'app
+scrive i propri profili gesture e azioni dentro il package, e con
+un'installazione normale finirebbero in `site-packages`.
+
+Da qui in avanti il comando `gesturetracker` e' disponibile da qualunque
+cartella. Senza installare il pacchetto resta valido
+`python -m hand_gesture_controller.main`, con gli stessi argomenti.
 
 ## Modello MediaPipe
 
@@ -40,19 +48,19 @@ python -m hand_gesture_controller.main --model-path C:\path\to\hand_landmarker.t
 Prova senza toccare il sistema, utile per verificare webcam e tracking:
 
 ```powershell
-python -m hand_gesture_controller.main --dry-run --no-virtual-camera
+gesturetracker --dry-run --no-virtual-camera
 ```
 
 Avvio normale:
 
 ```powershell
-python -m hand_gesture_controller.main
+gesturetracker
 ```
 
 Con la camera virtuale OBS:
 
 ```powershell
-python -m hand_gesture_controller.main --virtual-camera-backend obs
+gesturetracker --virtual-camera-backend obs
 ```
 
 Se la camera virtuale non e' disponibile il controller continua a funzionare e

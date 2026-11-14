@@ -7,7 +7,12 @@ from typing import Any
 
 from .config import AppConfig, DEFAULT_CONFIG, merge_dataclass
 
-DEFAULT_SETTINGS_PATH = Path("hand_gesture_controller") / "settings.json"
+# Come per i profili e il modello, i path si risolvono rispetto al package e
+# non alla cartella di lavoro: altrimenti avviando l'app da altrove il file
+# non verrebbe trovato, in silenzio.
+PACKAGE_DIR = Path(__file__).resolve().parent
+DEFAULT_SETTINGS_PATH = PACKAGE_DIR / "settings.json"
+EXAMPLE_SETTINGS_PATH = PACKAGE_DIR / "settings.example.json"
 
 
 class SettingsStore:
@@ -61,9 +66,8 @@ def _section(data: dict[str, Any], name: str) -> dict[str, Any]:
 
 def main() -> None:
     """Rigenera settings.example.json dai default del codice."""
-    path = Path("hand_gesture_controller") / "settings.example.json"
-    SettingsStore(path).save()
-    print(f"scritto {path}")
+    SettingsStore(EXAMPLE_SETTINGS_PATH).save()
+    print(f"scritto {EXAMPLE_SETTINGS_PATH}")
 
 
 if __name__ == "__main__":

@@ -1,0 +1,30 @@
+[build-system]
+requires = ["setuptools>=77"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "gesturetracker"
+version = "0.1.0"
+description = "Windows desktop controller for mouse and media playback using webcam-based hand gesture recognition"
+readme = "README.md"
+requires-python = ">=3.13"
+license = "MIT"
+license-files = ["LICENSE"]
+dynamic = ["dependencies"]
+
+[project.scripts]
+gesturetracker = "hand_gesture_controller.main:main"
+
+[project.urls]
+Homepage = "https://github.com/carminegallina/GestureTracker"
+
+# Le dipendenze restano nel requirements, cosi' non vanno tenute allineate in
+# due posti.
+[tool.setuptools.dynamic]
+dependencies = { file = ["hand_gesture_controller/requirements.txt"] }
+
+[tool.setuptools]
+packages = ["hand_gesture_controller"]
+
+[tool.setuptools.package-data]
+hand_gesture_controller = ["profiles/*.json", "settings.example.json"]
