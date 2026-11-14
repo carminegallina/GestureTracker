@@ -47,6 +47,15 @@ python -m hand_gesture_controller.main --pointer-sensitivity 0.7 --smoothing-alp
 Con piu' monitor, controllare la mappatura dello schermo: `--screen all`,
 `--screen primary`, `--screen 2`, oppure `--screen-rect left,top,width,height`.
 
+## Faccio i due pugni e invece di copiare mi cambia il mouse mode
+
+Succede con un video in corso. Le gesture media hanno priorita' sulla mano
+destra, quindi i binding vedono solo la sinistra e due pugni valgono come un
+pugno sinistro, che e' il comando del mouse mode.
+
+E' un comportamento accettato, non un difetto da segnalare: in quelle condizioni
+usa le gesture a una mano, pollice su per Ctrl+C e segno V per Ctrl+V.
+
 ## Il puntatore si ferma mentre guardo un video
 
 E' voluto: finche' tieni il pugno destro chiuso in un contesto media, quel pugno

@@ -54,6 +54,13 @@ i due puntatori non si contendono il cursore. Per disattivarlo: `--no-pointer-lo
 Le associazioni stanno in `hand_gesture_controller/profiles/default_actions.json`
 e si possono cambiare senza toccare il codice.
 
+Le due gesture a due mani non sono disponibili mentre le gesture media sono
+armate, cioe' quando c'e' una sessione media di Windows o un player in primo
+piano: in quel caso la mano destra appartiene ai media, resta vista solo la
+sinistra, e due pugni valgono come un pugno sinistro, quindi accendono o
+spengono il mouse mode invece di copiare. Per copiare e incollare in quelle
+condizioni usa le gesture a una mano, pollice su e segno V.
+
 ## Gesture video
 
 Funzionano solo con la mano destra e solo quando l'app rileva un contesto media:

@@ -84,3 +84,12 @@
   impostazioni non veniva trovato, in silenzio: ora segue la stessa regola degli altri.
 - Consigliata l'installazione modificabile (`pip install -e .`): l'app scrive i propri
   profili dentro il package, che con un'installazione normale starebbe in site-packages.
+- In contesto media le gesture a due mani (`two_fists`, `two_v_signs`) non sono
+  disponibili: la mano destra appartiene alle gesture video, i binding vedono solo la
+  sinistra e due pugni valgono come un pugno sinistro, quindi accendono o spengono il
+  mouse mode invece di copiare. Verificato simulando il loop.
+  Si e' scelto di accettare il limite e documentarlo, invece di far vincere le combo a
+  due mani sulle gesture media: il pugno destro da solo basta per i comandi video, e
+  per copia e incolla restano le gesture a una mano, pollice su e segno V.
+  Il comportamento e' fissato da un test in `tests/test_media_gestures.py`: se cambia,
+  vanno aggiornati USER_GUIDE, TROUBLESHOOTING e il README del package.

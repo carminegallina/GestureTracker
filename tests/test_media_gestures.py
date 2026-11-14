@@ -172,6 +172,22 @@ class BindingObservationsTests(unittest.TestCase):
 
         self.assertEqual(kept, [])
 
+    def test_two_hand_gestures_are_unavailable_in_media_context(self) -> None:
+        """Limite accettato, non un difetto: vedi docs/DECISIONS.md.
+
+        In contesto media la mano destra appartiene alle gesture video, quindi i
+        binding vedono solo la sinistra e due pugni valgono come un pugno
+        sinistro. Se questo test inizia a fallire, la priorita' e' cambiata:
+        aggiornare USER_GUIDE, TROUBLESHOOTING e il README del package.
+        """
+        hands = [observation(0.5, handedness="Left"), observation(0.5, handedness="Right")]
+
+        kept = _observations_for_bindings(
+            hands, MediaGestureUpdate(active=True, consumed=True), "Right"
+        )
+
+        self.assertEqual([o.hand.handedness for o in kept], ["Left"])
+
 
 if __name__ == "__main__":
     unittest.main()

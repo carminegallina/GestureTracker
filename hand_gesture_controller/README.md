@@ -190,7 +190,8 @@ controller scarta frame vecchi e mantiene il tracking reattivo.
 - La finestra di debug mostra gesture, stato, mano rilevata e ultima azione.
 - Di default vengono rilevate fino a 2 mani. La mano che fa pinch o movimento
   diventa la mano primaria per il puntatore, mentre le combo a due mani hanno
-  priorita' sui comandi singoli.
+  priorita' sui comandi singoli, tranne in contesto media: li' la mano destra
+  appartiene alle gesture video e le combo a due mani non si formano.
 - Se la webcam e' in modalita' mirror, le etichette Left/Right vengono invertite
   per mostrare la destra/sinistra reali dell'utente.
 - Quando una mano sparisce per pochi frame mentre l'altra resta visibile, viene
@@ -346,6 +347,10 @@ perche' mentre usi il tracker davanti c'e' la sua finestra, non il player.
 Finche' il pugno destro resta chiuso il puntatore e' sospeso, ma solo la mano
 destra viene sottratta ai binding: i comandi della mano sinistra, toggle del
 mouse compreso, continuano a funzionare.
+
+Di conseguenza le gesture a due mani, `two_fists` e `two_v_signs`, non sono
+disponibili in contesto media: vista solo la sinistra, due pugni valgono come un
+pugno sinistro. Le alternative a una mano, pollice su e segno V, restano valide.
 
 | Gesture | Azione |
 | --- | --- |
