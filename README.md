@@ -2,34 +2,33 @@
 
 [![tests](https://github.com/carminegallina/GestureTracker/actions/workflows/tests.yml/badge.svg)](https://github.com/carminegallina/GestureTracker/actions/workflows/tests.yml)
 
-Tool desktop Python per controllare il PC con gesture della mano via webcam.
+**English** · [Italiano](README.it.md)
 
-## Problema risolto
+A Python desktop tool for driving Windows with hand gestures through a webcam.
 
-Il progetto permette interazioni hands-free con il desktop: puntatore, click, selezione testo, scorciatoie copia/incolla e controlli video con gesture. Gestisce anche scenari pratici come webcam occupata, camera virtuale OBS e fallback degli indici camera.
+## What it solves
 
-## Funzionalita principali
+Hands-free interaction with the desktop: pointer, clicks, text selection, copy and paste
+shortcuts, and video controls. It also handles the awkward real-world cases — a webcam
+already in use by another application, an OBS virtual camera, and camera indexes that
+move around between reboots.
 
-- Tracking mano con MediaPipe.
-- Input webcam con fallback automatico degli indici camera.
-- Controllo puntatore, click e gesture configurabili.
-- Profili azione e profili gesture in JSON.
-- Controlli video per player/browser: play/pausa e seek con pugno destro,
-  via sessione media di Windows con fallback sui tasti.
-- Impostazioni su file JSON, con precedenza default, file, riga di comando.
-- Overlay desktop opzionale.
-- Supporto OBS Virtual Camera via `pyvirtualcam`.
-- 51 test unitari, eseguibili senza webcam ne' hardware.
+## Main features
 
-## Tech stack
+- Hand tracking with MediaPipe.
+- Webcam input that falls back automatically across camera indexes.
+- Pointer movement, clicks and configurable gestures.
+- Action profiles and gesture profiles, both as JSON.
+- Video controls for players and browsers: play/pause and seek with a right-hand fist,
+  through the Windows media session, falling back to key presses.
+- Settings in a JSON file, resolved in order: defaults, then file, then command line.
+- Optional desktop overlay.
+- OBS Virtual Camera support through `pyvirtualcam`.
+- A unit-test suite that runs without a webcam or any other hardware.
 
-- Python.
-- MediaPipe.
-- OpenCV.
-- NumPy.
-- PyAutoGUI.
-- pyvirtualcam / OBS Virtual Camera.
-- unittest.
+## Stack
+
+Python · MediaPipe · OpenCV · NumPy · PyAutoGUI · pyvirtualcam / OBS Virtual Camera · unittest
 
 ## Setup
 
@@ -41,9 +40,10 @@ python -m pip install -e .
 python -m hand_gesture_controller.download_model
 ```
 
-Il modello `hand_gesture_controller\models\hand_landmarker.task` puo' restare locale ed e' ignorato da Git.
+The model file `hand_gesture_controller\models\hand_landmarker.task` can stay local; it
+is ignored by Git.
 
-## Esecuzione
+## Running
 
 ```powershell
 gesturetracker --dry-run
@@ -53,42 +53,36 @@ gesturetracker --no-virtual-camera
 gesturetracker --virtual-camera-backend obs
 ```
 
-Il comando funziona da qualunque cartella. Senza installare il pacchetto resta
-valido `python -m hand_gesture_controller.main`, con gli stessi argomenti.
+The command works from any directory. Without installing the package,
+`python -m hand_gesture_controller.main` still works with the same arguments.
 
-## Test
+## Tests
 
 ```powershell
 python -m pip install -r requirements-dev.txt
 python -m pytest tests
 ```
 
-## Documentazione
+## Documentation
 
-- [Installazione](docs/INSTALLATION.md)
-- [Guida utente](docs/USER_GUIDE.md): gesture, tasti e comandi video
-- [Configurazione](docs/CONFIGURATION.md): impostazioni JSON e profili
+- [Installation](docs/INSTALLATION.md)
+- [User guide](docs/USER_GUIDE.md): gestures, keys and video commands
+- [Configuration](docs/CONFIGURATION.md): JSON settings and profiles
 - [Troubleshooting](docs/TROUBLESHOOTING.md)
-- [Sviluppo](docs/DEVELOPMENT.md)
-- [Architettura](docs/ARCHITECTURE.md), [decisioni](docs/DECISIONS.md), [roadmap](docs/ROADMAP.md)
+- [Development](docs/DEVELOPMENT.md)
+- [Architecture](docs/ARCHITECTURE.md), [decisions](docs/DECISIONS.md), [roadmap](docs/ROADMAP.md)
 
-## Screenshot/demo
+## Privacy
 
-Da aggiungere: una GIF che mostri puntatore e comandi video. Verificare che
-nella registrazione non compaiano dati personali.
+The camera feed is processed on the machine and never leaves it: the only network access
+in the project is `download_model.py`, which fetches the MediaPipe hand landmarker once.
+Nothing is recorded to disk unless you ask for it.
 
 ## Roadmap
 
-- Aggiungere una GIF demo delle gesture.
-- Valutare packaging o script di avvio.
+- A demo GIF of the gestures, checked for personal data before publishing.
+- Packaging, or a launcher script.
 
-## Privacy e sicurezza
+## Licence
 
-- Non committare credenziali, token, path personali o configurazioni sensibili.
-- Non committare log, catture schermo o video demo non revisionati.
-- Non committare il modello scaricato senza decisione esplicita.
-- Documentare chiaramente l'uso della webcam.
-
-## Licenza
-
-MIT, vedere [LICENSE](LICENSE).
+MIT — see [LICENSE](LICENSE).
