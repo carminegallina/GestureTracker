@@ -26,8 +26,11 @@ Creare un controller desktop dimostrabile via webcam che trasformi gesture della
 - Pubblicazione su store.
 - Automazioni per operazioni distruttive di sistema.
 
-## Stato asset
+## Asset e dati
 
-Codice importato da una cartella di lavoro locale esterna al portfolio.
+Il modello MediaPipe `hand_landmarker.task` si scarica con
+`python -m hand_gesture_controller.download_model` e resta ignorato da Git: e'
+un binario rigenerabile, non codice.
 
-Log e cache non sono stati importati. Il modello `hand_landmarker.task` e' presente localmente se copiato/scaricato, ma resta ignorato da Git.
+Le impostazioni locali (`settings.json`), i log e le catture restano fuori dal
+repository. Nessuna immagine dalla webcam viene salvata su disco.

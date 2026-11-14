@@ -4,7 +4,7 @@
 - [x] Importare codice in questa cartella.
 - [x] Scansionare dati sensibili prima del primo commit completo.
 - [x] Rilevare comandi install/test/run.
-- [x] Eseguire test dal nuovo percorso portfolio.
+- [x] Eseguire la suite di test.
 - [x] Verificata l'app sul campo: gesture media, mouse e chiusura finestra.
 - [ ] Aggiungere screenshot o GIF demo.
 - [x] Aggiornata la struttura dei moduli nel README del package.

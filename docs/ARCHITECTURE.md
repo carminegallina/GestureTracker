@@ -1,10 +1,12 @@
 # Architecture
 
-## Stato attuale
+## Impianto
 
-Codice importato nel portfolio. L'architettura e' organizzata come package Python `hand_gesture_controller` con test in `tests`.
+Package Python `hand_gesture_controller`, test in `tests`. Il riconoscimento
+delle gesture, l'input desktop e la configurazione restano separati: il motore
+che traduce gesture in azioni non sa come queste vengono eseguite.
 
-## Architettura target
+## Livelli
 
 - Camera input: acquisizione frame e gestione errori webcam.
 - Hand tracking: rilevamento mano, landmark e confidenza.
@@ -23,8 +25,14 @@ Codice importato nel portfolio. L'architettura e' organizzata come package Pytho
 - `binding_engine.py` e `action_runner.py`: mapping gesture/azioni.
 - `mouse_controller.py` e `right_hand_mouse.py`: controllo puntatore.
 - `media_gestures.py` e `screen_context.py`: gesture media per player/browser.
+- `media_control.py`: sessione media di Windows con fallback sui tasti.
+- `settings_store.py`: impostazioni da `settings.json`.
+- `physical_mouse_guard.py`: priorita' dell'air mouse sul mouse fisico.
 - `virtual_camera.py`: output OBS Virtual Camera.
 - `profiles`: profili JSON per azioni e gesture.
+
+L'albero completo dei moduli, con una riga di descrizione per ciascuno, e' nel
+README del package.
 
 ## Note tecniche
 
