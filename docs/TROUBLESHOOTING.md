@@ -47,6 +47,25 @@ python -m hand_gesture_controller.main --pointer-sensitivity 0.7 --smoothing-alp
 Con piu' monitor, controllare la mappatura dello schermo: `--screen all`,
 `--screen primary`, `--screen 2`, oppure `--screen-rect left,top,width,height`.
 
+## Il puntatore si ferma mentre guardo un video
+
+E' voluto: finche' tieni il pugno destro chiuso in un contesto media, quel pugno
+appartiene alle gesture video. Riapri la mano e il puntatore riparte. I comandi
+della mano sinistra, toggle del mouse compreso, restano sempre attivi.
+
+Se da' fastidio, le gesture media si spengono con `--no-media-gestures`, oppure
+si limitano al player in primo piano mettendo `prefer_native_media_context` a
+`false` nelle impostazioni.
+
+## Non riesco a spostare o chiudere la finestra del tracker
+
+Con il mouse mode acceso il mouse fisico viene bloccato, ma non sopra le
+finestre dell'app: li' deve passare, altrimenti il trascinamento della finestra
+non puo' terminare e l'app si pianta.
+
+Se succede ancora, avviare con `--no-pointer-lock`, che disattiva del tutto il
+blocco del mouse fisico.
+
 ## Le gesture video non partono
 
 Verificare, in ordine:

@@ -58,7 +58,12 @@ e si possono cambiare senza toccare il codice.
 
 Funzionano solo con la mano destra e solo quando l'app rileva un contesto media:
 una finestra di player o browser riconosciuta, oppure una sessione media di
-Windows attiva.
+Windows attiva. Il secondo caso serve davvero, perche' mentre usi il tracker la
+finestra davanti e' quasi sempre la sua, non quella del player.
+
+Finche' le gesture media sono armate il pugno destro appartiene a loro, quindi
+il puntatore resta sospeso mentre lo tieni chiuso. La mano sinistra continua a
+funzionare normalmente, toggle del mouse compreso.
 
 | Gesture | Azione |
 | --- | --- |
@@ -68,9 +73,10 @@ Windows attiva.
 
 Play/pausa parte una sola volta: per inviarlo di nuovo bisogna riaprire la mano.
 
-I comandi passano prima dalla sessione media di Windows, che funziona anche se
-la finestra del player non e' in primo piano e sposta la riproduzione di
-`native_seek_seconds` secondi. Se il player non espone una sessione media, l'app
+I comandi passano prima dalla sessione media di Windows, che agisce sul player
+reale anche se non e' in primo piano e sposta la riproduzione di
+`native_seek_seconds` secondi invece di affidarsi a quanto salta il player con
+la freccia. Se il player non espone una sessione media, l'app
 ricade sui tasti: `space`, `right`, `left`, e su YouTube `k`, `l`, `j`.
 
 Per usare solo i tasti: `--no-native-media`. Per spegnere del tutto le gesture

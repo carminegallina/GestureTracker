@@ -5,8 +5,12 @@ import unittest
 from hand_gesture_controller.binding_engine import HandObservation
 from hand_gesture_controller.config import MediaGestureConfig
 from hand_gesture_controller.gesture_detector import Gesture, GestureFrame
+from hand_gesture_controller.main import _observations_for_bindings
 from hand_gesture_controller.media_control import HybridMediaController
-from hand_gesture_controller.media_gestures import MediaGestureController
+from hand_gesture_controller.media_gestures import (
+    MediaGestureController,
+    MediaGestureUpdate,
+)
 from hand_gesture_controller.models import HandResult, LandmarkPoint
 from hand_gesture_controller.screen_context import ScreenContext
 
@@ -136,6 +140,37 @@ class MediaGestureControllerTests(unittest.TestCase):
         controller.update([observation(0.54)], YOUTUBE_CONTEXT, 0.25)
 
         self.assertEqual(keyboard.keys, ["l"])
+
+
+class BindingObservationsTests(unittest.TestCase):
+    """Le gesture media non devono zittire i comandi dell'altra mano."""
+
+    def test_consumed_hides_only_the_media_hand(self) -> None:
+        hands = [observation(0.5, handedness="Right"), observation(0.5, handedness="Left")]
+
+        kept = _observations_for_bindings(
+            hands, MediaGestureUpdate(active=True, consumed=True), "Right"
+        )
+
+        self.assertEqual([o.hand.handedness for o in kept], ["Left"])
+
+    def test_nothing_is_hidden_when_media_did_not_consume(self) -> None:
+        hands = [observation(0.5, handedness="Right"), observation(0.5, handedness="Left")]
+
+        kept = _observations_for_bindings(
+            hands, MediaGestureUpdate(active=True, consumed=False), "Right"
+        )
+
+        self.assertEqual(kept, hands)
+
+    def test_the_media_hand_is_matched_case_insensitively(self) -> None:
+        hands = [observation(0.5, handedness="Right")]
+
+        kept = _observations_for_bindings(
+            hands, MediaGestureUpdate(active=True, consumed=True), "right"
+        )
+
+        self.assertEqual(kept, [])
 
 
 if __name__ == "__main__":

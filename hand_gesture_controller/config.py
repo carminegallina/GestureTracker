@@ -73,6 +73,9 @@ class MediaGestureConfig:
     enabled: bool = True
     hand: str = "Right"
     use_native_media_controls: bool = True
+    # Una sessione media di Windows vale come contesto media anche se il player
+    # non e' in primo piano: serve perche' di solito davanti c'e' la finestra
+    # del tracker, non il player.
     prefer_native_media_context: bool = True
     native_seek_seconds: float = 10.0
     window_check_interval_seconds: float = 0.35

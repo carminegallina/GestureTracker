@@ -338,10 +338,14 @@ il pugno o la gesture di incolla risultano troppo sensibili.
 
 ## Gesture media player
 
-Quando l'app rileva un contesto media, le gesture con il pugno destro
-prendono priorita' rispetto ai binding normali. Il contesto e' una finestra in
-primo piano che sembra un player, oppure una sessione media di Windows attiva:
-in questo secondo caso i comandi funzionano anche con il player in background.
+Quando l'app rileva un contesto media, le gesture con il pugno destro prendono
+priorita' rispetto ai binding normali. Il contesto e' una finestra player in
+primo piano, oppure una sessione media di Windows attiva: il secondo caso serve
+perche' mentre usi il tracker davanti c'e' la sua finestra, non il player.
+
+Finche' il pugno destro resta chiuso il puntatore e' sospeso, ma solo la mano
+destra viene sottratta ai binding: i comandi della mano sinistra, toggle del
+mouse compreso, continuano a funzionare.
 
 | Gesture | Azione |
 | --- | --- |
@@ -355,7 +359,8 @@ Netflix, Twitch, Vimeo, Prime Video, player, video, watch o stream.
 I comandi passano prima dalla sessione media di Windows (Windows Media
 Transport Controls via WinRT): play/pausa agisce sul player reale e il seek
 sposta la riproduzione di `native_seek_seconds` secondi, 10 per default, anche
-se la finestra non e' in primo piano.
+se la finestra non e' in primo piano, invece di affidarsi a quanto salta il
+player con la freccia.
 
 Se il player non espone una sessione media, l'app ricade sui tasti: su YouTube
 usa le scorciatoie `J/K/L`, altrove `Freccia sinistra`, `Spazio`,

@@ -451,8 +451,20 @@ def run(
             if media_update.action:
                 last_action = f"media: {media_update.action}"
 
-            if not state_machine.paused and not media_update.consumed:
-                event = binding_engine.update(observations, effective_gesture, now)
+            binding_observations = _observations_for_bindings(
+                observations, media_update, config.media_gesture.hand
+            )
+            if not state_machine.paused:
+                event = binding_engine.update(
+                    binding_observations,
+                    combine_gestures(
+                        [
+                            observation.gesture_frame
+                            for observation in binding_observations
+                        ]
+                    ),
+                    now,
+                )
                 if event:
                     action_label = action_runner.run(event.action)
                     last_action = f"{event.name}: {action_label}"
@@ -465,8 +477,6 @@ def run(
                         right_mouse.cancel(mouse)
                         pointer_stabilizer.reset()
                         smoother.reset()
-            elif media_update.consumed:
-                binding_engine.update([], Gesture.NONE, now)
 
             previous_mouse_update = mouse_update
             mouse_update = MouseGestureUpdate("idle")
@@ -645,6 +655,26 @@ def _build_observations(
             custom_gestures=pose_templates.match(hand),
         )
         for hand, gesture_frame in hand_gestures
+    ]
+
+
+def _observations_for_bindings(
+    observations: list[HandObservation],
+    media_update: MediaGestureUpdate,
+    media_hand: str,
+) -> list[HandObservation]:
+    """Toglie ai binding solo la mano usata dalle gesture media.
+
+    Quando le gesture media consumano il frame, nascondere ai binding tutte le
+    osservazioni blocca anche i comandi dell'altra mano, toggle del mouse
+    compreso.
+    """
+    if not media_update.consumed:
+        return observations
+    return [
+        observation
+        for observation in observations
+        if observation.hand.handedness.lower() != media_hand.lower()
     ]
 
 

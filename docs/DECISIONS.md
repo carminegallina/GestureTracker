@@ -55,3 +55,20 @@
   PROJECT_BRIEF coprono gia' quel contenuto.
 - Aggiunto `requirements-dev.txt` con pytest, e i pacchetti `winrt-*` ai requirements:
   senza di essi i comandi media funzionano, ma solo via tasti.
+
+## 2026-11-14 (correzione)
+
+- Quando le gesture media consumano il frame, ai binding viene ora sottratta solo la
+  mano che i media usano, non l'intera lista di osservazioni. Prima il binding engine
+  riceveva una lista vuota, quindi il toggle del mouse con la mano sinistra non
+  arrivava mai: il blocco era li', non nell'ampiezza del contesto media.
+- Un primo tentativo aveva ristretto il contesto alla finestra in primo piano
+  (`prefer_native_media_context` a `false`) e richiesto una sessione in riproduzione.
+  Era sbagliato su entrambi i punti: mentre si usa il tracker la finestra davanti e'
+  la sua, non quella del player, quindi le gesture media non si armavano mai; e con il
+  requisito "in riproduzione" il pugno avrebbe messo in pausa senza poter piu' far
+  ripartire. Entrambe le condizioni sono state tolte.
+- `PhysicalMouseGuard` non blocca piu' il mouse fisico sopra le finestre dell'app.
+  Trascinare la finestra del tracker apre un loop modale di Windows che ferma il loop
+  principale, e con gli eventi fisici ingoiati il trascinamento non poteva terminare:
+  l'app si piantava e veniva chiusa come non rispondente.

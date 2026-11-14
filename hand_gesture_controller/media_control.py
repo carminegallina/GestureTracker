@@ -110,7 +110,8 @@ class WindowsNativeMediaController:
         playback_status = ""
         try:
             info = session.get_playback_info()
-            playback_status = str(getattr(info, "playback_status", "") or "")
+            status = getattr(info, "playback_status", None)
+            playback_status = "" if status is None else str(status)
         except Exception:
             pass
 

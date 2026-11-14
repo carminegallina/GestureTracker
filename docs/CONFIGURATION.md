@@ -53,7 +53,7 @@ python -m hand_gesture_controller.settings_store
 | --- | --- |
 | `hand` | Mano che comanda i media; default `Right` |
 | `use_native_media_controls` | Usa la sessione media di Windows invece dei soli tasti |
-| `prefer_native_media_context` | Considera media anche una sessione Windows attiva, non solo la finestra in primo piano |
+| `prefer_native_media_context` | Considera media anche una sessione Windows attiva, non solo la finestra in primo piano. Serve perche' davanti di solito c'e' la finestra del tracker, non il player |
 | `native_seek_seconds` | Secondi di salto per ogni seek nativo |
 | `swipe_threshold` | Spostamento minimo del pugno per un seek |
 | `swipe_max_seconds` | Oltre questa durata il movimento non e' piu' uno swipe |

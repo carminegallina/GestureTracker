@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import ctypes
+import os
 import platform
 import threading
 from ctypes import wintypes
@@ -22,6 +23,23 @@ class MSLLHOOKSTRUCT(ctypes.Structure):
     ]
 
 
+def should_block_event(
+    *,
+    should_block: bool,
+    is_injected: bool,
+    is_own_window: bool,
+) -> bool:
+    """Decide se ingoiare un evento del mouse fisico.
+
+    Gli eventi generati dall'app devono passare, altrimenti l'air mouse
+    bloccherebbe se stesso. Devono passare anche quelli diretti alle finestre
+    dell'app: il trascinamento di una finestra entra in un loop modale di
+    Windows che blocca il loop principale, e con il mouse fisico ingoiato il
+    trascinamento non puo' nemmeno terminare, percio' l'app si piantava.
+    """
+    return should_block and not is_injected and not is_own_window
+
+
 LowLevelMouseProc = ctypes.WINFUNCTYPE(
     ctypes.c_ssize_t,
     ctypes.c_int,
@@ -41,6 +59,7 @@ class PhysicalMouseGuard:
     ) -> None:
         self.should_block = should_block
         self.enabled = enabled and platform.system() == "Windows"
+        self._own_pid = os.getpid()
         self._thread: threading.Thread | None = None
         self._thread_id = wintypes.DWORD(0)
         self._hook = None
@@ -116,10 +135,27 @@ class PhysicalMouseGuard:
         self._stopped.set()
 
     def _should_block_event(self, l_param) -> bool:
+        # ponytail: la callback gira nel thread del hook e passa dal GIL; se il
+        # loop principale lo tiene troppo, Windows stacca il hook da solo
+        # (LowLevelHooksTimeout). Se diventa un problema, serve il hook in C.
         try:
             hook_data = ctypes.cast(l_param, ctypes.POINTER(MSLLHOOKSTRUCT)).contents
-            is_injected = bool(hook_data.flags & LLMHF_INJECTED)
-            return self.should_block() and not is_injected
+            return should_block_event(
+                should_block=self.should_block(),
+                is_injected=bool(hook_data.flags & LLMHF_INJECTED),
+                is_own_window=self._is_own_window(hook_data.pt),
+            )
+        except Exception:
+            return False
+
+    def _is_own_window(self, point) -> bool:
+        try:
+            handle = self._user32.WindowFromPoint(point)
+            if not handle:
+                return False
+            pid = wintypes.DWORD(0)
+            self._user32.GetWindowThreadProcessId(handle, ctypes.byref(pid))
+            return pid.value == self._own_pid
         except Exception:
             return False
 
@@ -162,6 +198,15 @@ class PhysicalMouseGuard:
 
         self._user32.DispatchMessageW.argtypes = [ctypes.POINTER(wintypes.MSG)]
         self._user32.DispatchMessageW.restype = ctypes.c_ssize_t
+
+        self._user32.WindowFromPoint.argtypes = [wintypes.POINT]
+        self._user32.WindowFromPoint.restype = wintypes.HWND
+
+        self._user32.GetWindowThreadProcessId.argtypes = [
+            wintypes.HWND,
+            ctypes.POINTER(wintypes.DWORD),
+        ]
+        self._user32.GetWindowThreadProcessId.restype = wintypes.DWORD
 
         self._user32.PostThreadMessageW.argtypes = [
             wintypes.DWORD,
