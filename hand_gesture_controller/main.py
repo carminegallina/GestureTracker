@@ -548,6 +548,8 @@ def run(
                 key = cv2.waitKey(1) & 0xFF
                 if key == 27:
                     break
+                if not debug_window_is_open(config.runtime.debug_window_name):
+                    break
                 if key == 32:
                     if (
                         not state_machine.paused
@@ -656,6 +658,18 @@ def _build_observations(
         )
         for hand, gesture_frame in hand_gestures
     ]
+
+
+def debug_window_is_open(name: str) -> bool:
+    """Falso quando la finestra di debug e' stata chiusa con la X.
+
+    Senza questo controllo il loop prosegue e il successivo imshow ricrea la
+    finestra, percio' chiuderla sembrava far ripartire l'app invece di chiuderla.
+    """
+    try:
+        return cv2.getWindowProperty(name, cv2.WND_PROP_VISIBLE) >= 1
+    except cv2.error:
+        return False
 
 
 def _observations_for_bindings(

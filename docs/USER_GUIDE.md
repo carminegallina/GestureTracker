@@ -17,7 +17,7 @@ sono scorciatoie globali.
 | Tasto | Azione |
 | --- | --- |
 | `SPACE` | Pausa / ripresa; se la webcam non e' disponibile forza un nuovo tentativo |
-| `ESC` | Chiude l'applicazione |
+| `ESC` | Chiude l'applicazione, come la X della finestra |
 | `r` | Registra una posa statica generica |
 | `1` `2` `3` | Registrano le pose `custom_copy`, `custom_paste`, `custom_toggle_mouse` |
 

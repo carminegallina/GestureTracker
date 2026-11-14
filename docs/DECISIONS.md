@@ -72,3 +72,7 @@
   Trascinare la finestra del tracker apre un loop modale di Windows che ferma il loop
   principale, e con gli eventi fisici ingoiati il trascinamento non poteva terminare:
   l'app si piantava e veniva chiusa come non rispondente.
+- La X della finestra di debug ora chiude l'app. OpenCV non ferma il programma quando
+  si chiude una finestra: il loop proseguiva e il successivo `imshow` la ricreava,
+  percio' sembrava che l'app si riavviasse. Il loop controlla `WND_PROP_VISIBLE`,
+  verificato su opencv 5.0: 1.0 con la finestra aperta, 0.0 dopo la chiusura.

@@ -57,7 +57,14 @@ Se da' fastidio, le gesture media si spengono con `--no-media-gestures`, oppure
 si limitano al player in primo piano mettendo `prefer_native_media_context` a
 `false` nelle impostazioni.
 
-## Non riesco a spostare o chiudere la finestra del tracker
+## Chiudo la finestra e l'app sembra riavviarsi
+
+Era il comportamento prima della correzione: OpenCV non ferma il programma
+quando si chiude una finestra, e il frame dopo la ricreava. Ora la X chiude
+l'app come `ESC`. Se succede ancora, la finestra chiusa non e' quella di debug
+ma l'overlay: quello si spegne togliendo `--overlay`.
+
+## Non riesco a spostare la finestra del tracker
 
 Con il mouse mode acceso il mouse fisico viene bloccato, ma non sopra le
 finestre dell'app: li' deve passare, altrimenti il trascinamento della finestra

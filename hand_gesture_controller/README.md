@@ -18,7 +18,7 @@ drag/selezione, copia e incolla con gesture della mano.
 | Due pugni mantenuti | Ctrl+C |
 | Due segni V mantenuti | Ctrl+V |
 | SPAZIO | Pausa / riprendi |
-| ESC | Esci |
+| ESC o la X della finestra | Esci |
 
 ## Setup
 
