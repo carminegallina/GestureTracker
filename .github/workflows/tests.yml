@@ -4,6 +4,9 @@ on:
   push:
     branches: [main]
   pull_request:
+  # Permette di rilanciare la suite a mano dalla pagina Actions, utile quando il
+  # run di un push non parte o va rieseguito senza un commit nuovo.
+  workflow_dispatch:
 
 jobs:
   tests:
