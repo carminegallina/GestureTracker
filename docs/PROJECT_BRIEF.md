@@ -10,7 +10,6 @@ Creare un controller desktop dimostrabile via webcam che trasformi gesture della
 
 ## Utenti target
 
-- Recruiter o team tecnici che valutano il portfolio.
 - Utenti interessati ad accessibilita, automazione e computer vision.
 - Sviluppatore del progetto durante test e demo.
 
