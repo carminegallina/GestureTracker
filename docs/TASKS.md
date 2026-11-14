@@ -5,7 +5,7 @@
 - [x] Scansionare dati sensibili prima del primo commit completo.
 - [x] Rilevare comandi install/test/run.
 - [x] Eseguire test dal nuovo percorso portfolio.
-- [ ] Verificare run `--dry-run` dal nuovo percorso portfolio.
+- [x] Verificata l'app sul campo: gesture media, mouse e chiusura finestra.
 - [ ] Aggiungere screenshot o GIF demo.
 - [x] Aggiornata la struttura dei moduli nel README del package.
 - [x] Rimuovere path personali dai documenti prima della pubblicazione.
