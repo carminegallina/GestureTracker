@@ -10,7 +10,7 @@ Tool desktop Python per controllare il PC con gesture della mano via webcam.
 
 Il progetto permette interazioni hands-free con il desktop: puntatore, click, selezione testo, scorciatoie copia/incolla e controlli video con gesture. Gestisce anche scenari pratici come webcam occupata, camera virtuale OBS e fallback degli indici camera.
 
-## Funzionalita principali
+## Funzionalità principali
 
 - Tracking mano con MediaPipe.
 - Input webcam con fallback automatico degli indici camera.
@@ -21,7 +21,7 @@ Il progetto permette interazioni hands-free con il desktop: puntatore, click, se
 - Impostazioni su file JSON, con precedenza default, file, riga di comando.
 - Overlay desktop opzionale.
 - Supporto OBS Virtual Camera via `pyvirtualcam`.
-- 51 test unitari, eseguibili senza webcam ne' hardware.
+- 51 test unitari, eseguibili senza webcam né hardware.
 
 ## Tech stack
 
@@ -43,7 +43,7 @@ python -m pip install -e .
 python -m hand_gesture_controller.download_model
 ```
 
-Il modello `hand_gesture_controller\models\hand_landmarker.task` puo' restare locale ed e' ignorato da Git.
+Il modello `hand_gesture_controller\models\hand_landmarker.task` può restare locale ed è ignorato da Git.
 
 ## Esecuzione
 
